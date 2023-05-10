@@ -49,8 +49,9 @@ a {
 
 .form {
   display: grid;
+  grid-template-columns: 7fr 1fr;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 }
 
 .form input {
@@ -59,6 +60,24 @@ a {
 
 .form::placeholder {
   font-family: "IBM Plex Mono", monospace;
+}
+
+.form button {
+  background-image: linear-gradient(
+    295deg,
+    #4abeff 0,
+    #1088f8 50%,
+    #0056a7 100%
+  );
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: center;
+  padding: 8px;
+}
+
+.form img {
+  transform: rotate(-90deg);
 }
 
 .navegacao-list {
@@ -99,10 +118,18 @@ a {
   cursor: pointer;
 }
 
-.teste {
+.form-tarefas {
   background: #fff;
   padding: 16px;
   border-radius: 0 0 4px 4px;
   min-width: 400px;
   align-self: start;
+  display: grid;
+  gap: 8px;
+}
+
+.form-tarefas div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
