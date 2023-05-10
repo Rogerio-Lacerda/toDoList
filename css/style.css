@@ -133,3 +133,7 @@ a {
   gap: 8px;
   align-items: center;
 }
+
+.erro {
+  color: #e71314;
+}
