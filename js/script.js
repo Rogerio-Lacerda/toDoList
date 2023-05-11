@@ -2,7 +2,7 @@ const navLinks = document.querySelectorAll("[data-nav]");
 const texto = document.querySelector("#texto");
 const btnEnviar = document.querySelector(".btn-enviar");
 const btnRemoverTudo = document.querySelector(".btn-remove-tudo");
-const ul = document.querySelector("ul-tarefas");
+const ul = document.querySelector(".ul-tarefas");
 
 const clickNav = (event) => {
   event.preventDefault();
@@ -12,10 +12,10 @@ const clickNav = (event) => {
 };
 navLinks.forEach((item) => item.addEventListener("click", clickNav));
 
-let itensTafefas = [];
+let itensTarefas = [];
 
 const removerTudo = () => {
-  itensTafefas = [];
+  itensTarefas = [];
 };
 btnRemoverTudo.addEventListener("click", removerTudo);
 
@@ -42,11 +42,25 @@ const verificaTexto = (event) => {
 btnEnviar.addEventListener("click", verificaTexto);
 
 function setandoTarefa() {
-  if (itensTafefas.length >= 20) {
+  if (itensTarefas.length >= 20) {
     alert("Limite máximo de 20 itens atingido!");
     return;
   }
 
-  itensTafefas.push({ item: texto.value, status: "" });
-  console.log(itensTafefas);
+  itensTarefas.push({ item: texto.value, status: "" });
+  uptadeTarefas();
+}
+
+function uptadeTarefas() {
+  localStorage.setItem("todolist", JSON.stringify(itensTarefas));
+  loadTarefas();
+}
+
+function loadTarefas() {
+  ul.innerHTML = "";
+  itensTarefas = JSON.parse(localStorage.getItem("todolist")) ?? [];
+  console.log(itensTarefas);
+  itensTarefas.forEach((item, index) => {
+    insertItemTela(item.item, item.status, i);
+  });
 }
