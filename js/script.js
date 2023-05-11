@@ -1,4 +1,8 @@
 const navLinks = document.querySelectorAll("[data-nav]");
+const texto = document.querySelector("#texto");
+const btnEnviar = document.querySelector(".btn-enviar");
+const btnRemoverTudo = document.querySelector(".btn-remove-tudo");
+const ul = document.querySelector("ul-tarefas");
 
 const clickNav = (event) => {
   event.preventDefault();
@@ -8,51 +12,41 @@ const clickNav = (event) => {
 };
 navLinks.forEach((item) => item.addEventListener("click", clickNav));
 
-const createTask = (conteudo, atritbuto) => {
-  const label = document.createElement("label");
-  label.innerText = conteudo;
-  label.setAttribute("for", atritbuto);
-  const task = `<div>
-  <input type='checkbox' name='${atritbuto}' id='${atritbuto}'>
-  ${label.outerHTML}
-  </div>
-  `;
-  return task;
+let itensTafefas = [];
+
+const removerTudo = () => {
+  itensTafefas = [];
 };
+btnRemoverTudo.addEventListener("click", removerTudo);
 
-const btnEnviar = document.querySelector(".btn-enviar");
-const formToDoList = document.querySelector("#form-toDoList");
-
-const setandoTarefas = (valoresForm) => {
-  const valoresTask = valoresForm;
-  const conteudoDiv = createTask(valoresTask.valueText, valoresTask.numRandom);
-  const container = document.querySelector(".form-tarefas");
-  if (valoresTask.valueText === "") {
-    const erroAll = document.querySelectorAll(".erro");
-    if (erroAll.length) {
-      erroAll.forEach((item) => item.remove());
+const verificaTexto = (event) => {
+  event.preventDefault();
+  const value = texto.value;
+  if (value === "") {
+    const formToDoList = document.querySelector("#form-toDoList");
+    const existe = document.querySelector(".erro");
+    if (!existe) {
+      const span = document.createElement("span");
+      span.classList.add("erro");
+      span.innerText = "Preencha o campo de texto!";
+      formToDoList.appendChild(span);
     }
-    const erro = document.createElement("span");
-    erro.innerText = "Preencha o campo de texto!";
-    erro.classList.add("erro");
-    formToDoList.appendChild(erro);
   } else {
-    const erro = document.querySelector(".erro");
-    if (erro) {
-      erro.remove();
+    const existe = document.querySelector(".erro");
+    if (existe) {
+      existe.remove();
     }
-    container.innerHTML += conteudoDiv;
+    setandoTarefa();
   }
 };
+btnEnviar.addEventListener("click", verificaTexto);
 
-const valoresTarefas = (event) => {
-  event.preventDefault();
-  const valueText = formToDoList[0].value;
-  const numRandom = "_" + Math.random().toFixed(7);
-  const valoresObj = {
-    valueText,
-    numRandom,
-  };
-  setandoTarefas(valoresObj);
-};
-btnEnviar.addEventListener("click", valoresTarefas);
+function setandoTarefa() {
+  if (itensTafefas.length >= 20) {
+    alert("Limite máximo de 20 itens atingido!");
+    return;
+  }
+
+  itensTafefas.push({ item: texto.value, status: "" });
+  console.log(itensTafefas);
+}
