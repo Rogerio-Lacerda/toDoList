@@ -118,7 +118,7 @@ a {
   cursor: pointer;
 }
 
-.form-tarefas {
+.ul-tarefas {
   background: #fff;
   padding: 16px;
   border-radius: 0 0 4px 4px;
@@ -128,7 +128,7 @@ a {
   gap: 8px;
 }
 
-.form-tarefas div {
+.ul-tarefas div {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -136,4 +136,5 @@ a {
 
 .erro {
   color: #e71314;
+  display: block;
 }
